@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_text">Add Text</string>
+    <string name="add_image">Add Image</string>
+    <string name="editor">Editor</string>
+    <string name="type_here">Type Here</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="set_text_location">Touch where to put text!</string>
+    <string name="set_image_location">Touch where to put image</string>
+</resources>
