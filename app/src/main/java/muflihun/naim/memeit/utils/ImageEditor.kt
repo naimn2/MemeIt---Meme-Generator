@@ -26,11 +26,14 @@ class ImageEditor {
             val paint = Paint()
             paint.color = color
             paint.textSize = size
-            canvas.drawText(text, x, y, paint)
+            val width = text.length*size/4
+            val height = size/4
+            canvas.drawText(text, x-width, y+height, paint)
             canvas.save()
             return bitmap
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         fun listenImageViewTouchCoordinate(iv: ImageView, onTouchCallback: OnTouchCallback): Array<Float> {
             var x: Float = 0.0f
             var y: Float = 0.0f
@@ -44,6 +47,7 @@ class ImageEditor {
             return arrayOf(x, y)
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         fun stopListenImageViewTouchCoordinate(iv: ImageView) {
             iv.setOnTouchListener(null)
         }

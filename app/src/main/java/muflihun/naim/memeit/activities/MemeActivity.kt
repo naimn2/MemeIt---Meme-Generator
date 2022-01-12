@@ -9,13 +9,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import com.bumptech.glide.Glide
 import muflihun.naim.memeit.R
 import muflihun.naim.memeit.databinding.ActivityMemeBinding
 import muflihun.naim.memeit.models.MemesItem
 import muflihun.naim.memeit.utils.ImageEditor
+import muflihun.naim.memeit.utils.SaveImage
 import java.io.IOException
 
 class MemeActivity : AppCompatActivity() {
@@ -55,7 +58,21 @@ class MemeActivity : AppCompatActivity() {
             .into(binding.ivActMeme)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_meme_editor, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+            R.id.menu_item_save_meme -> {
+                val bitmap: Bitmap = getBitmapFromImage(binding.ivActMeme)
+                SaveImage.saveImage(this, bitmap)
+            }
+            R.id.menu_item_reset_meme -> { TODO() }
+            R.id.menu_item_share_meme -> { TODO() }
+        }
         if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
     }
@@ -64,6 +81,10 @@ class MemeActivity : AppCompatActivity() {
      * Add Text Handling
      *
      * */
+    
+    private fun getBitmapFromImage(imageView: ImageView): Bitmap { // Pemborosan harusnya bisa ji 1 kali saja ini
+        return (imageView.drawable as BitmapDrawable).bitmap
+    }
 
     private fun addTextHandler() {
         showTextInserter(true)
@@ -71,7 +92,7 @@ class MemeActivity : AppCompatActivity() {
 
     private fun addFinalTextHandler() {
         val text = binding.includedTextInserter.etTextinserterAddtext.text.toString()
-        var bitmap = (binding.ivActMeme.drawable as BitmapDrawable).bitmap
+        var bitmap = getBitmapFromImage(binding.ivActMeme)
 
         ImageEditor.listenImageViewTouchCoordinate(binding.ivActMeme,
             object : ImageEditor.OnTouchCallback {
@@ -79,13 +100,15 @@ class MemeActivity : AppCompatActivity() {
                     writeTextOnImage(bitmap, text, x, y)
                     ImageEditor.stopListenImageViewTouchCoordinate(binding.ivActMeme)
                     isLocating(false, "")
+                    binding.includedTextInserter.etTextinserterAddtext.setText(getString(R.string.type_here))
                 }
             })
         isLocating(true, getString(R.string.set_text_location))
     }
 
     private fun writeTextOnImage(bitmap: Bitmap, text: String, x: Float, y: Float) {
-        val newBitmap = ImageEditor.writeTextOnImage(bitmap, text, 50f, Color.BLACK, x, y)
+        val size = binding.includedTextInserter.etTextinserterAddtext.textSize
+        val newBitmap = ImageEditor.writeTextOnImage(bitmap, text, size, Color.BLACK, x, y)
 
         Glide.with(this).load(newBitmap).into(binding.ivActMeme)
         showTextInserter(false)
@@ -94,6 +117,7 @@ class MemeActivity : AppCompatActivity() {
     private fun showTextInserter(state: Boolean) {
         if (state) {
             binding.includedTextInserter.root.visibility = View.VISIBLE
+            binding.includedTextInserter.etTextinserterAddtext.requestFocus()
             binding.llMemeeditBar.visibility = View.INVISIBLE
         } else {
             binding.includedTextInserter.root.visibility = View.GONE
@@ -132,7 +156,7 @@ class MemeActivity : AppCompatActivity() {
             val fileUri: Uri? = data.data
             try {
                 frontBitmap = MediaStore.Images.Media.getBitmap(contentResolver, fileUri)
-                val backBitmap = (binding.ivActMeme.drawable as BitmapDrawable).bitmap
+                val backBitmap = getBitmapFromImage(binding.ivActMeme)
 
                 ImageEditor.listenImageViewTouchCoordinate(binding.ivActMeme,
                     object: ImageEditor.OnTouchCallback {

@@ -3,10 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/MemeIt/app/src/main/res/drawable/bg_button.xml" value="0.14583333333333334" />
         <entry key="..\:/AndroidStudioProjects/MemeIt/app/src/main/res/layout/activity_main.xml" value="0.2520833333333333" />
         <entry key="..\:/AndroidStudioProjects/MemeIt/app/src/main/res/layout/activity_meme.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/MemeIt/app/src/main/res/layout/meme_item.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/MemeIt/app/src/main/res/layout/text_inserter.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/MemeIt/app/src/main/res/menu/menu_meme_editor.xml" value="0.2520833333333333" />
       </map>
     </option>
   </component>

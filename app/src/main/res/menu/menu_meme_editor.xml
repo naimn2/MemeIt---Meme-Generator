@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menu_item_save_meme" android:title="@string/save"
+        android:icon="@drawable/ic_baseline_save_white"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/menu_item_share_meme" android:title="@string/share"
+        android:icon="@drawable/ic_baseline_share_white"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/menu_item_reset_meme"
+        android:title="@string/reset"/>
+</menu>
